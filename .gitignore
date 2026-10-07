@@ -1,0 +1,22 @@
+# .NET build output
+DVW/bin/
+DVW/obj/
+*.user
+.vs/
+.vscode/
+
+# Unity generated folders
+DVW_Shaders/[Ll]ibrary/
+DVW_Shaders/[Tt]emp/
+DVW_Shaders/[Oo]bj/
+DVW_Shaders/[Ll]ogs/
+DVW_Shaders/[Uu]serSettings/
+DVW_Shaders/Bundles/
+DVW_Shaders/Assets/_bundles/
+DVW_Shaders/Assets/_bundles.meta
+DVW_Shaders/*.csproj
+DVW_Shaders/*.sln
+
+# OS
+Thumbs.db
+.DS_Store

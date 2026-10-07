@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>DVW</AssemblyName>
+    <RootNamespace>DVW</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- ADAPTE ce chemin à ton installation de KSP -->
+    <KSPDir>E:\SteamLibrary\steamapps\common\KSP_clean</KSPDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- permet de cibler .NET Framework 4.7.2 sans Visual Studio -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies"
+                      Version="1.0.3" PrivateAssets="all" />
+
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(KSPDir)\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(KSPDir)\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(KSPDir)\KSP_x64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(KSPDir)\KSP_x64_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>$(KSPDir)\KSP_x64_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- copie automatique de la DLL et des .cfg (dossier ..\DynamicVesselWeathering) dans GameData -->
+  <Target Name="CopyToKSP" AfterTargets="Build">
+    <ItemGroup>
+      <GameDataCfg Include="..\DynamicVesselWeathering\**\*.cfg" />
+    </ItemGroup>
+    <Copy SourceFiles="$(TargetPath)"
+          DestinationFolder="$(KSPDir)\GameData\DynamicVesselWeathering\Plugins" />
+    <Copy SourceFiles="@(GameDataCfg)"
+          DestinationFiles="@(GameDataCfg->'$(KSPDir)\GameData\DynamicVesselWeathering\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+</Project>
